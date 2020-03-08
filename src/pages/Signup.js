@@ -3,23 +3,27 @@ import { Link } from "react-router-dom";
 import { withAuth } from "./../lib/Auth";
 
 class Signup extends Component {
-  state = { username: "", password: "", studentName: "" };
+  state = { username: "", password: "", studentName: "", cohort: "" };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    const { username, password, studentName } = this.state;
+    const { username, password, studentName, cohort } = this.state;
 
-    this.props.signup(username, password, studentName);
+    this.props.signup(username, password, studentName, cohort);
     //this will call func.provider 
   };
 
-  handleChange = event => {
-    const { name, value } = event.target;
+  handleChange = e => {
+    let { name, value, type } = e.target;
+    if (type === 'radio') {
+      let selected = document.querySelector('input[name="cohort"]:checked').value;
+      value = selected;
+    }
     this.setState({ [name]: value });
   };
 
   render() {
-    const { username, password } = this.state;
+    const { username, password, studentName, cohort } = this.state;
     return (
       <div>
         <h1>Sign Up</h1>
@@ -41,27 +45,30 @@ class Signup extends Component {
             onChange={this.handleChange}
           />
 
-          {/* <label>Student Name:</label>
+          <label>Student Name:</label>
           <input
             type="text"
             name="studentName"
             value={studentName}
             onChange={this.handleChange}
-          /> */}
+          />
 
-          {/* <label>Choose your cohort:</label>
+          <label>Choose your cohort:</label>
           <input
             type="radio"
             name="cohort"
-            value="ux/ui"> UX/UI </input>
+            value="ux/ui"
+            onChange={this.handleChange} /> UX/UI 
           <input
             type="radio"
             name="cohort"
-            value="web"> Web Dev </input>
+            value="web"
+            onChange={this.handleChange} /> Web Dev 
           <input
             type="radio"
             name="cohort"
-            value="data"> Data </input> */}
+            value="data"
+            onChange={this.handleChange} /> Data 
 
           <input type="submit" value="Signup" />
         </form>

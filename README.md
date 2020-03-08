@@ -26,7 +26,7 @@ This is a visual novel video game, with a plot centering in a student's typical 
 
 - **Less restrictive saving option:** give more option to the player to save whenever in the game they want.
 - **More chapters!**
-- **Playthrough comparison**
+- **Playthrough comparison**: lets the user see the other player decisions in their playthroughs.
 
 <br>
 
@@ -37,11 +37,13 @@ This is a visual novel video game, with a plot centering in a student's typical 
 | Path                 | Component    | Permissions                | Behavior                                                     |
 | -------------------- | ------------ | -------------------------- | ------------------------------------------------------------ |
 | `/`                  | TitleScreen  | public `<Route>`           | Title page.                                                  |
-| `/signup`            | SignUp       | anon only  `<AnonRoute>`   | Signup form, link to login, navigate to homepage after signup. |
+| `/signup`            | SignUp       | anon only  `<AnonRoute>`   | Signup form, link to login, new player form, navigate to homepage after signup. |
 | `/login`             | LogIn        | anon only  `<AnonRoute>`   | Login form, link to signup, navigate to homepage after login |
 | `/logout`            | n/a          | user only `<PrivateRoute>` | Navigate to title screen after logout, expire session.       |
-| `/newPlayer`         | CreatePlayer | user only `<PrivateRoute>` | Creates a new player with its' specific parameters.          |
+| `/home`              | MainScreen   | user only `<PrivateRoute>` | Shows the new game and load game options.                    |
+| `/profile`           |              | user only `<PrivateRoute>` | Edits the player info.                                       |
 | `/settings`          | SettingsMenu | user only `<PrivateRoute>` | Shows the settings menu, leading to Save, Load, and Edit Student. |
+| `/settings`          |              |                            |                                                              |
 | `/settings/saveload` | SaveLoadMenu | user only `<PrivateRoute>` | Shows the save slots available for saving new game into, or games previously saved to load from. |
 | `/story`             |              | user only `<PrivateRoute>` | This is where the magic (game) happens!                      |
 | `/story/choice`      | ChoicesMenu  | user only `<PrivateRoute>` | Gives the player the choices they have to make at a specific point of the story to carry on with it. |
@@ -102,10 +104,10 @@ Playthrough {
 | POST        | `/auth/signup`                   | {studentName, username, password, cohort} | 201            | 404          |                                                              |
 | POST        | `/auth/login`                    | {username, password}                      | 200            | 404          |                                                              |
 | POST        | `/auth/logout`                   | (empty)                                   | 204            | 400          |                                                              |
-| PUT         | `/settings/edituser/`            | {studentName, cohort}                     |                |              | Edits user info                                              |
+| PUT         | `/settings/edituser/`            | {studentName, cohort}                     | 200            | 400          | Edits user info                                              |
 | GET         | `/settings/saveload`             |                                           | 200            | 404          | Lists all saveFiles (saveSlots)                              |
-| POST        | `/story/:saveloadId`             | {[choiceId]}                              |                |              | Saves story progress, that was temporarily stored in localStorage, in a saveFile |
-| DELETE      | `/settings/saveload/:saveloadid` |                                           |                |              | Deletes a saveFile                                           |
+| POST        | `/story/:saveloadId`             | {[choiceId]}                              | 201            | 400          | Saves story progress, that was temporarily stored in localStorage, in a saveFile |
+| DELETE      | `/settings/saveload/:saveloadid` |                                           | 200            | 400          | Deletes a saveFile                                           |
 | GET         | `/story/:saveloadId`             |                                           |                |              | Loads a saveFile                                             |
 
 <br>
