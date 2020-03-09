@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withAuth } from "./../lib/Auth";
+import SettingsIcon from "./../images/SettingsIcon.png"
 
 class Navbar extends Component {
   render() {
@@ -15,6 +16,9 @@ class Navbar extends Component {
           <>
             <p>username: {user.username}</p>
             <button onClick={logout}>Logout</button>
+            <Link to='/settings'>
+              <img src={SettingsIcon} width='45' height='45'/>
+            </Link>
           </>
         ) : (
           <>

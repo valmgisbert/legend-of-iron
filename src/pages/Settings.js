@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import EditStudent from '../components/EditStudent';
 import { Link } from "react-router-dom";
 import {withAuth} from './../lib/Auth';
 
@@ -10,6 +9,16 @@ class Settings extends Component {
         <h1>Settings</h1>
         <br />
         <br />
+        <button>
+          <Link to={'/settings/saveload'}>
+            Save
+          </Link>
+        </button>
+        <button>
+          <Link to={'/settings/saveload'}>
+            Load
+          </Link>
+        </button>
         <button>
           <Link to={'/settings/editstudent'}>
             Edit Student

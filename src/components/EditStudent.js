@@ -10,22 +10,21 @@ class EditStudent extends Component {
   componentDidMount(){
     this.getTheStudentInfo();
   }
-
+  
   getTheStudentInfo = () => {
     axios.get(`http://localhost:5000/settings/editstudent`, { withCredentials: true})
-      .then( (response) => {
-        const studentInfo = response.data;
-        console.log('studentInfo', studentInfo)
-        this.setState({studentInfo, isLoading: false});
+    .then( (response) => {
+      const studentInfo = response.data;
+      console.log('studentInfo', studentInfo)
+      this.setState({studentInfo, isLoading: false});
 
-        
-        console.log('this.state', this.state)
+      console.log('this.state', this.state)
       })
       .catch( (err) => console.log(err));
   }
 
   handleChange = e => {  
-    const {name, value, type} = e.target;
+    let {name, value, type} = e.target;
     if (type === 'radio') {
       let selected = document.querySelector('input[name="cohort"]:checked').value;
       value = selected;
@@ -52,7 +51,6 @@ class EditStudent extends Component {
 
   render() {
     const { isLoading } = this.state;
-    // const { cohort } = this.state.studentInfo;
     console.log(this.state);
     
     return (
@@ -74,19 +72,19 @@ class EditStudent extends Component {
               type="radio"
               name="cohort"
               value="ux/ui"
-              // {cohort == 'ux/ui' ? checked : null}
+              checked={this.state.studentInfo.cohort === "ux/ui"}
               onChange={this.handleChange} /> UX/UI 
             <input
               type="radio"
               name="cohort"
               value="web"
-              // {cohort == 'web' ? checked : null}
+              checked={this.state.studentInfo.cohort === "web"}
               onChange={this.handleChange} /> Web Dev 
             <input
               type="radio"
               name="cohort"
               value="data"
-              // {cohort == 'data' ? checked : null}
+              checked={this.state.studentInfo.cohort === "data"}
               onChange={this.handleChange} /> Data 
 
             <button onClick={this.handleSubmit}>Done</button>
@@ -100,5 +98,3 @@ class EditStudent extends Component {
 }
 
 export default withAuth(EditStudent);
-
-//document.querySelector({this.state.studentInfo.cohort}).setAttribute("checked");
