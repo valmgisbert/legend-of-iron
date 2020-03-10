@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withAuth } from "./../lib/Auth";
 import SettingsIcon from "./../images/SettingsIcon.png"
+import LogOut from "./../images/LogOut.png"
 
 class Navbar extends Component {
   render() {
@@ -14,11 +15,15 @@ class Navbar extends Component {
         </Link>
         {isLoggedIn ? (
           <>
-            <p>username: {user.username}</p>
-            <button onClick={logout}>Logout</button>
-            <Link to='/settings'>
-              <img src={SettingsIcon} width='45' height='45'/>
-            </Link>
+            <div className="logged-items">
+              <p>username: {user.username}</p>
+              <button className='fake-btn' onClick={logout}>
+                <img src={LogOut} width='45' height='45'/>
+              </button>
+              <Link to='/settings'>
+                <img src={SettingsIcon} width='45' height='45'/>
+              </Link>
+            </div>
           </>
         ) : (
           <>

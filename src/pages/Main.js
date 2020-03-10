@@ -4,16 +4,16 @@ import Logo from "./../images/Logo.png"
 
 function Main(props) {
   return (
-    <div>
+    <div className="main-page">
       <div id="logo">
         <img src={Logo} alt="logo"/>
       </div>
       <ul id="menu">
         <li>
-          <button onClick={props.beginStory}>New Game</button>
+          <button className="main-btn" onClick={props.beginStory}>New Game</button>
         </li>
         <li>
-          <button>Load Game</button>
+          <button className="main-btn">Load Game</button>
         </li>
       </ul>
     </div>

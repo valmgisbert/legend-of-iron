@@ -3,7 +3,7 @@ import Logo from "./../images/Logo.png";
 
 function Home() {
   return (
-    <div> 
+    <div className="home-page"> 
       <div id="logo">
         <img src={Logo} alt="logo"/>
       </div>
