@@ -8,15 +8,17 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Main from "./pages/Main";
 import Settings from "./pages/Settings";
+import Story from "./pages/Story";
 import EditStudent from "./components/EditStudent";
 
 import AnonRoute from "./components/AnonRoute";
 import PrivateRoute from "./components/PrivateRoute";
+import SaveLoadMenu from "./components/SaveLoadMenu";
 
 class App extends Component {
   render() {
     return (
-      <div className="page-container">
+      <div>
         <Navbar />
 
         <Switch>
@@ -28,6 +30,8 @@ class App extends Component {
           <PrivateRoute exact path="/main" component={Main} />
           <PrivateRoute exact path="/settings" component={Settings} />
           <PrivateRoute exact path="/settings/editstudent" component={EditStudent} />
+          <PrivateRoute exact path="/settings/saveload" component={SaveLoadMenu} />
+          <PrivateRoute exact path="/story" component={Story} />
         </Switch>
       </div>
     );

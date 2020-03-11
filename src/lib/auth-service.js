@@ -34,6 +34,11 @@ class Auth {
     return this.auth.get("/auth/me").then(({ data }) => data);
     // return this.auth.get("/auth/me").then((response) => response.data);
   }
+
+  profile() {
+    return this.auth.get("/auth/profile").then(({ data }) => data);
+    // return this.auth.get("/auth/profile").then((response) => response.data);
+  }
 }
 
 const authService = new Auth();

@@ -1,8 +1,14 @@
 import React from "react";
 import { withAuth } from "../lib/Auth";
 import Logo from "./../images/Logo.png"
+import {Link} from "react-router-dom";
 
 function Main(props) {
+  const setNewGame = () => {
+    const redirectToStory = true
+    props.setCurrentGameIndex(0, redirectToStory);
+  }
+
   return (
     <div className="main-page">
       <div id="logo">
@@ -10,7 +16,9 @@ function Main(props) {
       </div>
       <ul id="menu">
         <li>
-          <button className="main-btn" onClick={props.beginStory}>New Game</button>
+          <Link to='/story'>
+            <button className="main-btn" onClick={setNewGame}>New Game</button>
+          </Link>
         </li>
         <li>
           <button className="main-btn">Load Game</button>
