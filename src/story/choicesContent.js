@@ -1,5 +1,3 @@
-import React from 'react';
-
 var choicesContent = [
   {
     choices: [
@@ -13,20 +11,18 @@ var choicesContent = [
       }
     ]
   },
-  // {
-  //   // choices: [
-  //   //   {
-  //   //     id: "",
-  //   //     content: "Wash the cup",
-  //   //     routeStart: ""
-  //   //   },
-  //   //   {
-  //   //     id: "",
-  //   //     content: "Leave it to accumulate",
-  //   //     routeStart: ""
-  //     }
-  //   ]
-  // }
+  {
+    choices: [
+      {
+        content: "Read the message",
+        routeStart: "thankYou"
+      },
+      {
+        content: "Go to your seat",
+        routeStart: "noThankYou"
+      }
+    ]
+  }
 ]
 
 export default choicesContent;

@@ -3,11 +3,10 @@ import {withAuth} from "./../lib/Auth";
 import storyContentMaker from './../story/storyContent';
 import StoryFrame from './../components/StoryFrame';
 import ChoiceMenu from './../components/ChoiceMenu';
-import SaveLoadMenu from './../components/SaveLoadMenu';
+// import SaveLoadMenu from './../components/SaveLoadMenu';
 import choicesContent from './../story/choicesContent';
-import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import Fullscreen from "react-full-screen";
-import WheelReact from "wheel-react";
+// import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+// import Fullscreen from "react-full-screen";
 
 class Story extends Component {
   constructor() {
@@ -98,13 +97,13 @@ class Story extends Component {
     // Updates story with new index
     this.setState({
       index: index,
+      choicesExist: storyContent[index].choicesExist,
       bg: storyContent[index].bg,
       bgm: storyContent[index].bgm,
-      choicesExist: storyContent[index].choicesExist,
       // soundEffect: storyContent[index].soundEffect,
       speaker: storyContent[index].speaker,
-      // sprite: story[index].sprite,
-      // spriteEffect: story[index].spriteEffect,
+      sprite: storyContent[index].sprite,
+      spriteEffect: storyContent[index].spriteEffect,
       spriteTransition: storyContent[index].spriteTransition,
       text: storyContent[index].text,
       bgTransition: storyContent[index].bgTransition
@@ -155,31 +154,31 @@ class Story extends Component {
   }
 
 
-  //save & load slots
-  saveSlot(number) {
-    var date = new Date();
-    var fullDateInfo =
-      ("0" + date.getDate()).slice(-2) +
-      "-" +
-      ("0" + (date.getMonth() + 1)).slice(-2) +
-      "-" +
-      date.getYear() +
-      " " +
-      ("0" + date.getHours()).slice(-2) +
-      ":" +
-      ("0" + date.getMinutes()).slice(-2);
+  // //save & load slots
+  // saveSlot(number) {
+  //   var date = new Date();
+  //   var fullDateInfo =
+  //     ("0" + date.getDate()).slice(-2) +
+  //     "-" +
+  //     ("0" + (date.getMonth() + 1)).slice(-2) +
+  //     "-" +
+  //     date.getYear() +
+  //     " " +
+  //     ("0" + date.getHours()).slice(-2) +
+  //     ":" +
+  //     ("0" + date.getMinutes()).slice(-2);
 
-    localStorage.setItem("time" + number, fullDateInfo);
-    localStorage.setItem(number, JSON.stringify(this.state, (k, v) => (v === undefined ? null : v)));
-    this.setState(this.state);
-  }
+  //   localStorage.setItem("time" + number, fullDateInfo);
+  //   localStorage.setItem(number, JSON.stringify(this.state, (k, v) => (v === undefined ? null : v)));
+  //   this.setState(this.state);
+  // }
 
-  loadSlot(number) {
-    this.setState(JSON.parse(localStorage.getItem(number)));
-    this.setState({
-      saveMenuShown: false
-    }); // save menu to false and not load because save is true when saving
-  }
+  // loadSlot(number) {
+  //   this.setState(JSON.parse(localStorage.getItem(number)));
+  //   this.setState({
+  //     saveMenuShown: false
+  //   }); // save menu to false and not load because save is true when saving
+  // }
 
   renderFrame() {
     return (
@@ -187,9 +186,9 @@ class Story extends Component {
         font={this.state.font}
         setNextFrame={this.setNextFrame.bind(this)}
         bg={this.state.bg}
-        // sprite={this.state.sprite}
-        // spriteEffect={this.state.spriteEffect}
-        // spriteTransition={this.state.spriteTransition}
+        sprite={this.state.sprite}
+        spriteEffect={this.state.spriteEffect}
+        spriteTransition={this.state.spriteTransition}
         speaker={this.state.speaker}
         text={this.state.text}
         textBoxShown={this.state.textBoxShown}
@@ -214,23 +213,6 @@ class Story extends Component {
     //once the setState is done, set the frame
   }
 
-  // saveMenu() {
-  //   return (
-  //     <SaveLoadMenu
-  //       choicesExist={this.state.choicesExist}
-  //       choiceOptions={this.state.choiceOptions}
-  //       confirmationMessage="Overwrite save?"
-  //       currentTime={this.state.currentTime}
-  //       menuType="Save"
-  //       executeSlot={this.saveSlot.bind(this)}
-  //       toggleMenu={this.toggleSaveMenu.bind(this)}
-  //       speaker={this.state.speaker}
-  //       text={this.state.text}
-  //       textBoxShown={this.state.textBoxShown}
-  //     />
-  //   );
-  // }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevState.index < this.state.index) {
       this.setState({
@@ -241,40 +223,16 @@ class Story extends Component {
     }
   }
 
-  //sound-related functions
-  // playBGM() {
-  //   return <Sound url={this.state.bgm} volume={this.state.bgmVolume} playStatus={Sound.status.PLAYING} loop={true} />;
-  // }
-  // playSoundEffect() {
-  //   return (
-  //     <Sound url={this.state.soundEffect} volume={this.state.soundEffectVolume} playStatus={Sound.status.PLAYING} />
-  //   );
-  // }
-
   render() {
-    let zoomMultiplier = 0;
-    if (window.innerWidth * 1 / window.innerHeight <= 1280 * 1 / 720) {
-      zoomMultiplier = window.innerWidth * 1 / 1280;
-    } else {
-      zoomMultiplier = window.innerHeight * 1 / 720;
-    }
     return (
-      <div {...WheelReact.events} style={this.state.isFull ? { zoom: zoomMultiplier } : null}>
-        <Fullscreen enabled={this.state.isFull} onChange={isFull => this.setState({ isFull })}>
-        <ReactCSSTransitionGroup
-            className="container"
-            component="div"
-            transitionName="menu"
-            transitionEnterTimeout={400}
-            transitionLeaveTimeout={400}
-          >
+      <div>
+        
           {!this.state.storyContent ? null : <div>
               {this.state.frameIsRendering ? this.renderFrame() : null}
               {this.state.choicesExist ? this.renderChoiceMenu() : null}
             </div>
           }
-        </ReactCSSTransitionGroup>
-        </Fullscreen>
+
       </div>
     )
   }

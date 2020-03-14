@@ -57,13 +57,13 @@ class SaveLoadMenu extends Component {
         slotsToRender.push(
           //the loadgame callback will look for the id of that specific saveslot on click
           //the savegame callback will make POST req to server
-          <button className="save-load-btn" onClick={() => clickHandler(slotId)}
+          <button className="btn save-load-btn" onClick={() => clickHandler(slotId)}
           style={slotStyle}>
             {buttonStatus} {i}
           </button>
         );
       }
-      return <div className="save-load-buttons">{slotsToRender}</div>;
+      return <div className="save-load-box">{slotsToRender}</div>;
     }
 
     //
@@ -71,7 +71,7 @@ class SaveLoadMenu extends Component {
 
   render() {
     return (
-      <div className="overlay overlay-save-load">
+      <div className="save-load">
         { this.isSlotSaved()}
       </div>
     )

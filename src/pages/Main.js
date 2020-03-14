@@ -14,16 +14,17 @@ function Main(props) {
       <div id="logo">
         <img src={Logo} alt="logo"/>
       </div>
-      <ul id="menu">
-        <li>
+      <div id="menu">
+        
           <Link to='/story'>
-            <button className="main-btn" onClick={setNewGame}>New Game</button>
+            <button className="btn main-btn" onClick={setNewGame}>New Game</button>
           </Link>
-        </li>
-        <li>
-          <button className="main-btn">Load Game</button>
-        </li>
-      </ul>
+        
+        <Link to='/settings/saveload'>
+          <button className="btn main-btn">Load Game</button>
+        </Link>
+        
+      </div>
     </div>
   )
 }
